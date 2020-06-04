@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { ImageBackground,Text,Alert, StyleSheet, View, Image,TextInput, TouchableOpacity } from 'react-native'
 
 import Firebase from './firebase.js' 
+var user;
+global.User=user;
 export default class Login extends Component {
     constructor(props)
     {
@@ -12,15 +14,22 @@ export default class Login extends Component {
         }
     }
 
-
-
-
     loginUser = (email,password) =>{
         
         try{
 
                 Firebase.auth().signInWithEmailAndPassword(email,password).then(function(){
-                
+                    user = Firebase.auth().currentUser;
+                    User=user;
+                    if (user) {
+   
+                        var useridref = Firebase.database().ref("userid/" + user.uid);
+                        useridref.on('value', function(snapshot) {
+                            console.log(snapshot.val().Username);
+                        
+                        });
+                        
+                      }
                 })
           
             
@@ -28,6 +37,7 @@ export default class Login extends Component {
         catch(error){
             console.log(error.toString())
         }
+     
      }
 
 

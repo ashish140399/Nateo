@@ -15,7 +15,7 @@ class Section extends Component{
 
   constructor( props ) {
     super( props );
-    
+    console.log(User)
     this.startButton = this.startButton.bind(this);
     this.state = {
       hour:'00',

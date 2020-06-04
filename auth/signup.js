@@ -35,7 +35,10 @@ export default class Signup extends Component {
             if(this.state.errValue==0)
             {
                 Firebase.auth().createUserWithEmailAndPassword(email,password).then(function(){
-                    var Userinfoinit = firebase.database().ref("email/" + username);
+                    var uid,user;
+                    user = Firebase.auth().currentUser;
+                    var Userinfoinit = Firebase.database().ref("userid/" + user.uid);
+                    console.log(user.uid)
                     Userinfoinit.set({
                         Name: name,
                         Username:username,   
