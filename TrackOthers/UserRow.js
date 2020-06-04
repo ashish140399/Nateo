@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import {StyleSheet, View,Text, Image} from 'react-native';
+import Firebase from '../auth/firebase.js'
 class UserRow extends Component{
 
 
@@ -11,7 +12,14 @@ class UserRow extends Component{
     
   }
 
+  componentDidMount(){
+    var useridref = Firebase.database().ref("userid/" + User.uid);
+    useridref.on('value', ((snapshot) => {
+       console.log(snapshot.val());
+    }));
+  }
 
+  
   render() {
     return(
         <View>

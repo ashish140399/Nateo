@@ -4,6 +4,8 @@ import { ImageBackground,Text,Alert, StyleSheet, View, Image,TextInput, Touchabl
 import Firebase from './firebase.js' 
 var user;
 global.User=user;
+var snapshotval;
+global.Snapshotval=snapshotval;
 export default class Login extends Component {
     constructor(props)
     {
@@ -18,21 +20,19 @@ export default class Login extends Component {
         
         try{
 
-                Firebase.auth().signInWithEmailAndPassword(email,password).then(function(){
+                Firebase.auth().signInWithEmailAndPassword(email,password).then(()=> {
                     user = Firebase.auth().currentUser;
                     User=user;
                     if (user) {
    
                         var useridref = Firebase.database().ref("userid/" + user.uid);
-                        useridref.on('value', function(snapshot) {
-                            console.log(snapshot.val().Username);
+                        useridref.on('value', function(snapshot) {snapshot.val();});
+                        this.props.navigation.navigate('HomeLayout')
                         
-                        });
-                        
-                      }
+                    }
                 })
           
-            
+            setTimeout
         }
         catch(error){
             console.log(error.toString())

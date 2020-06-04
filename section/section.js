@@ -15,26 +15,37 @@ class Section extends Component{
 
   constructor( props ) {
     super( props );
-    console.log(User)
+    
+
     this.startButton = this.startButton.bind(this);
     this.state = {
       hour:'00',
       minute: '00',
-      seconds: '00',
+      seconds: '55',
       watchstatus: true,
-      Buttonstatus:'Start'
+      Buttonstatus:'Start',
+      Username:'ash'
     }
-   
+     
+    
     
     
   }
 
-  componentDidCatch(){
-    
+  componentDidMount(){
+    var useridref = Firebase.database().ref("userid/" + User.uid);
+    useridref.on('value', ((snapshot) => {
+       console.log(snapshot.val());
+       this.setState({Username:snapshot.val().Username});
+       console.log(this.state.Username)
+    }));
+
+
+   
   }
 
   timerstatus = ()=>{
-      
+    console.log(this.state.Username)
     if(Number(this.state.seconds)<9){
       this.state.seconds='0'+(Number(this.state.seconds) + 1).toString();  
     }else{
@@ -43,7 +54,7 @@ class Section extends Component{
   
     if(this.state.seconds=='60')
     {
-      this.setState({seconds:'00'});
+      this.state.seconds='00';
       if(Number(this.state.minute)<9){
         this.state.minute='0' + (Number(this.state.minute) + 1).toString();
       }else{
@@ -52,17 +63,19 @@ class Section extends Component{
     }
     if(this.state.minute=='60')
     {
-      this.setState({minute:'00'});
+      this.state.minute='00';
       if(Number(this.state.hour)<9){
         this.state.hour='0' + (Number(this.state.hour) + 1).toString();
       }else{
         this.state.hour=(Number(this.state.hour) + 1).toString()
       }
     }
-   
-  
      this.setState({milliseconds:this.state.miliseconds})
-  };
+
+     Firebase.database().ref('userid/' + User.uid).update({
+      seconds: this.state.seconds,
+    });
+};
   
 
 
