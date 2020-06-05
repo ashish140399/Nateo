@@ -76,6 +76,9 @@ export default class Signup extends Component {
                         <TouchableOpacity>
                             <Text  style={styles.buttonlogin} onPress={()=>this.signupUser(this.state.email,this.state.password,this.state.name,this.state.username)}>Let's Sign Up</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text  style={styles.buttonlogin} onPress={()=>{this.props.navigation.navigate('Login')}}>Already Signed Up? Log in..</Text>
+                        </TouchableOpacity>
                         <Text>{this.state.error}</Text>
                     </View>
                 </ImageBackground>
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
         paddingBottom:12,
         textAlign:'center',
         color:'#fff',
-        fontSize:18,
+        fontSize:16,
         fontWeight:'600',
     },
 

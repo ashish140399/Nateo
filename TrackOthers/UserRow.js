@@ -24,8 +24,11 @@ class UserRow extends Component{
     return(
         <View>
             <View style={{display:"flex",flexDirection:'row',alignItems:'center',paddingLeft:30,paddingRight:30,backgroundColor:'#f0f0f0',paddingTop:10,paddingBottom:10,justifyContent:'space-around'}}>
-                
+                <View>
                 <Image source = {require('../images/profileg.jpg')} style={{width:50,height:50,borderRadius:50,marginRight:15}}/>
+                <Text  style={styles.onlinestatus}></Text>
+                </View>
+                
                 <Text style={{marginRight:15}}>Ashish Kumar</Text>
                 <View style={{marginRight:15}}>
                     <View style={{display:"flex",flexDirection:'row',alignItems:'center'}}><Text>2h</Text><Text>27m</Text></View>
@@ -42,6 +45,15 @@ class UserRow extends Component{
 };
 
 const styles = StyleSheet.create({
+  onlinestatus:{
+    width:10,
+    height:10,
+    backgroundColor:'#A9A9A9',
+    position:'absolute',
+    borderRadius:10,
+    right:18,
+    bottom:0,
+  },
   StopwatchBoxctrl_btn:{
     padding:20,
     display:'flex',

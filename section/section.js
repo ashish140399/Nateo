@@ -21,7 +21,7 @@ class Section extends Component{
     this.state = {
       hour:'00',
       minute: '00',
-      seconds: '55',
+      seconds: '50',
       watchstatus: true,
       Buttonstatus:'Start',
       Username:'ash'
@@ -74,6 +74,9 @@ class Section extends Component{
 
      Firebase.database().ref('userid/' + User.uid).update({
       seconds: this.state.seconds,
+      minute:this.state.minute,
+      hour:this.state.hour,
+      watchstatus:this.state.watchstatus
     });
 };
   
@@ -89,13 +92,18 @@ startButton = () => {
     stopwatchAction = setInterval(() => {this.timerstatus()},1000);
     this.setState({buttonchangetext:'Hey, I am updated'});
     this.setState({Buttonstatus:'Stop',watchstatus:false});
-
+    Firebase.database().ref('userid/' + User.uid).update({
+      watchstatus:this.state.watchstatus
+    });
   }
   else if(this.state.watchstatus==false)
   {
     clearInterval(stopwatchAction);
     this.setState({buttonchangetext:buttonchangetext});
     this.setState({Buttonstatus:'Start',watchstatus:true});
+    Firebase.database().ref('userid/' + User.uid).update({
+      watchstatus:this.state.watchstatus
+    });
   }
  
 }

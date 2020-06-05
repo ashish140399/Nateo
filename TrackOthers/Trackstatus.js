@@ -17,7 +17,7 @@ class TrackStatus extends Component{
     return(
       
         <View  style={{height:200}}>
-<Icon name="bars" color="#4F8EF7" size={30}/>
+{/*<Icon name="bars" color="#4F8EF7" size={30}/>*/}
 
       
         <Text style={{fontSize:20,fontWeight:'500',textAlign:'center',backgroundColor:'#81ecec',borderTopRightRadius:10,borderTopLeftRadius:10,paddingTop:15,paddingBottom:15}} >Track Others</Text>

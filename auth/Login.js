@@ -56,6 +56,9 @@ export default class Login extends Component {
                         <TouchableOpacity onPress={()=>this.loginUser(this.state.email,this.state.password)}>
                             <Text  style={styles.buttonlogin} >Let's Log In</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Signup')}}>
+                            <Text  style={styles.buttonlogin} >First time? Sign in..</Text>
+                        </TouchableOpacity>
                     </View>
                 </ImageBackground>
                
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
         paddingBottom:12,
         textAlign:'center',
         color:'#fff',
-        fontSize:18,
+        fontSize:17,
         fontWeight:'600',
     },
 
