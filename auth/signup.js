@@ -38,6 +38,7 @@ export default class Signup extends Component {
                     var uid,user;
                     user = Firebase.auth().currentUser;
                     var Userinfoinit = Firebase.database().ref("userid/" + user.uid);
+                    var Userinfoname = Firebase.database().ref("usernames/" + username);
                     console.log(user.uid)
                     Userinfoinit.set({
                         Name: name,
@@ -48,6 +49,9 @@ export default class Signup extends Component {
                         seconds: '00',
                         watchstatus: true,
                         Buttonstatus:'Start'             
+                    });
+                    Userinfoname.set({
+                        uid :user.uid,
                     });
                 })
             

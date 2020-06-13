@@ -19,10 +19,10 @@ class Section extends Component{
 
     this.startButton = this.startButton.bind(this);
     this.state = {
-      hour:'00',
-      minute: '00',
-      seconds: '50',
-      watchstatus: true,
+      hour:'--',
+      minute: '--',
+      seconds: '--',
+      watchstatus: false,
       Buttonstatus:'Start',
       Username:'ash'
     }
@@ -34,18 +34,19 @@ class Section extends Component{
 
   componentDidMount(){
     var useridref = Firebase.database().ref("userid/" + User.uid);
-    useridref.on('value', ((snapshot) => {
-       console.log(snapshot.val());
+    useridref.once("value").then((snapshot) => {
        this.setState({Username:snapshot.val().Username});
-       console.log(this.state.Username)
-    }));
+       this.setState({seconds:snapshot.val().seconds});
+       this.setState({minute:snapshot.val().minute});
+       this.setState({hour:snapshot.val().hour});
+       this.setState({watchstatus:snapshot.val().watchstatus});
+    });
 
 
    
   }
 
   timerstatus = ()=>{
-    console.log(this.state.Username)
     if(Number(this.state.seconds)<9){
       this.state.seconds='0'+(Number(this.state.seconds) + 1).toString();  
     }else{
@@ -76,7 +77,6 @@ class Section extends Component{
       seconds: this.state.seconds,
       minute:this.state.minute,
       hour:this.state.hour,
-      watchstatus:this.state.watchstatus
     });
 };
   
@@ -86,21 +86,20 @@ class Section extends Component{
 
 
 startButton = () => {
-  if(this.state.watchstatus==true)
+  if(this.state.watchstatus==false)
   {
     
     stopwatchAction = setInterval(() => {this.timerstatus()},1000);
-    this.setState({buttonchangetext:'Hey, I am updated'});
-    this.setState({Buttonstatus:'Stop',watchstatus:false});
+    this.setState({Buttonstatus:'Stop',watchstatus:true});
     Firebase.database().ref('userid/' + User.uid).update({
       watchstatus:this.state.watchstatus
     });
   }
-  else if(this.state.watchstatus==false)
+  else if(this.state.watchstatus==true)
   {
     clearInterval(stopwatchAction);
     this.setState({buttonchangetext:buttonchangetext});
-    this.setState({Buttonstatus:'Start',watchstatus:true});
+    this.setState({Buttonstatus:'Start',watchstatus:false});
     Firebase.database().ref('userid/' + User.uid).update({
       watchstatus:this.state.watchstatus
     });

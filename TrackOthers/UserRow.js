@@ -8,34 +8,28 @@ class UserRow extends Component{
 
   constructor( props ) {
     super( props );
-
+    
     
   }
 
-  componentDidMount(){
-    var useridref = Firebase.database().ref("userid/" + User.uid);
-    useridref.on('value', ((snapshot) => {
-       console.log(snapshot.val());
-    }));
-  }
-
+  
   
   render() {
     return(
         <View>
-            <View style={{display:"flex",flexDirection:'row',alignItems:'center',paddingLeft:30,paddingRight:30,backgroundColor:'#f0f0f0',paddingTop:10,paddingBottom:10,justifyContent:'space-around'}}>
+            <View style={styles.userrowmain}>
                 <View>
                 <Image source = {require('../images/profileg.jpg')} style={{width:50,height:50,borderRadius:50,marginRight:15}}/>
-                <Text  style={styles.onlinestatus}></Text>
+                <Text  style={[styles.onlinestatus, this.props.online == false ? styles.onlinestatustrue : styles.onlinestatusfalse]} ></Text>
                 </View>
                 
-                <Text style={{marginRight:15}}>Ashish Kumar</Text>
+                <Text style={{marginRight:15}}>{this.props.username}</Text>
                 <View style={{marginRight:15}}>
-                    <View style={{display:"flex",flexDirection:'row',alignItems:'center'}}><Text>2h</Text><Text>27m</Text></View>
+                    <View style={{display:"flex",flexDirection:'row',alignItems:'center'}}><Text>{this.props.hours} :</Text><Text> {this.props.minutes}</Text></View>
                     <Text style={{fontSize:8}}>Today</Text>
                 </View>
                 <View>
-                    <View style={{display:"flex",flexDirection:'row',alignItems:'center'}}><Text>2h</Text><Text>27m</Text></View>
+                    <View style={{display:"flex",flexDirection:'row',alignItems:'center'}}><Text>--</Text><Text>--</Text></View>
                     <Text style={{fontSize:8}}>This Week</Text>
                 </View>
             </View>
@@ -45,15 +39,28 @@ class UserRow extends Component{
 };
 
 const styles = StyleSheet.create({
+  userrowmain:{
+    display:"flex",
+    flexDirection:'row',
+    alignItems:'center',
+    paddingLeft:30,
+    paddingRight:30,
+    backgroundColor:'#f0f0f0',
+    paddingTop:10,
+    paddingBottom:10,
+    justifyContent:'space-around'
+  },
   onlinestatus:{
     width:10,
     height:10,
-    backgroundColor:'#A9A9A9',
     position:'absolute',
     borderRadius:10,
     right:18,
     bottom:0,
   },
+  onlinestatustrue:{backgroundColor:'blue'},
+  onlinestatusfalse:{backgroundColor:'#A9A9A9'},
+
   StopwatchBoxctrl_btn:{
     padding:20,
     display:'flex',
