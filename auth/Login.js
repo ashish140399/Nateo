@@ -52,7 +52,7 @@ export default class Login extends Component {
                             <Image source = {require('../images/dog2.gif')} style={{ overlayColor: '#ADEDF9',width:150,height:150,borderRadius:150}}/>
                         </View>
                         <TextInput placeholder="E-mail" style={styles.input} onChangeText={(email) => this.setState({email})}></TextInput>
-                        <TextInput placeholder="Password" style={styles.input} onChangeText={(password) => this.setState({password})}></TextInput>
+                        <TextInput  placeholder="Password" style={styles.input} onChangeText={(password) => this.setState({password})}></TextInput>
                         <TouchableOpacity onPress={()=>this.loginUser(this.state.email,this.state.password)}>
                             <Text  style={styles.buttonlogin} >Let's Log In</Text>
                         </TouchableOpacity>

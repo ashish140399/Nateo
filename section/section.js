@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Component} from 'react';
-import {StyleSheet, View, Text,Button} from 'react-native';
+import {StyleSheet, View, Text,Button,AppState} from 'react-native';
 import ProgressCircle from 'react-native-progress-circle';
 import LinearGradient from 'react-native-linear-gradient';
 const buttonchangetext = "Hey, I am active";
@@ -24,7 +24,8 @@ class Section extends Component{
       seconds: '--',
       watchstatus: false,
       Buttonstatus:'Start',
-      Username:'ash'
+      Username:'ash',
+      appState: AppState.currentState
     }
      
     
@@ -41,10 +42,23 @@ class Section extends Component{
        this.setState({hour:snapshot.val().hour});
        this.setState({watchstatus:snapshot.val().watchstatus});
     });
-
+    AppState.addEventListener('change', this._handleAppStateChange);
 
    
   }
+
+  _handleAppStateChange = (nextAppState) => {
+    if (this.state.appState.match(/inactive|background/)) {
+      clearInterval(stopwatchAction);
+      this.setState({Buttonstatus:'Start',watchstatus:true});
+      Firebase.database().ref('userid/' + User.uid).update({
+        watchstatus:this.state.watchstatus
+      });
+    }
+    this.setState({appState: nextAppState});
+  }
+
+
 
   timerstatus = ()=>{
     if(Number(this.state.seconds)<9){
@@ -72,7 +86,7 @@ class Section extends Component{
       }
     }
      this.setState({milliseconds:this.state.miliseconds})
-
+      
      Firebase.database().ref('userid/' + User.uid).update({
       seconds: this.state.seconds,
       minute:this.state.minute,
@@ -98,7 +112,6 @@ startButton = () => {
   else if(this.state.watchstatus==true)
   {
     clearInterval(stopwatchAction);
-    this.setState({buttonchangetext:buttonchangetext});
     this.setState({Buttonstatus:'Start',watchstatus:false});
     Firebase.database().ref('userid/' + User.uid).update({
       watchstatus:this.state.watchstatus

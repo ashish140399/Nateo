@@ -25,7 +25,7 @@ class UserRow extends Component{
                 
                 <Text style={{marginRight:15}}>{this.props.username}</Text>
                 <View style={{marginRight:15}}>
-                    <View style={{display:"flex",flexDirection:'row',alignItems:'center'}}><Text>{this.props.hours} :</Text><Text> {this.props.minutes}</Text></View>
+                    <View style={{display:"flex",flexDirection:'row',alignItems:'center'}}><Text>{this.props.hour} :</Text><Text>{this.props.minute} :</Text><Text> {this.props.seconds}</Text></View>
                     <Text style={{fontSize:8}}>Today</Text>
                 </View>
                 <View>

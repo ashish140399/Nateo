@@ -119,7 +119,7 @@ Firebase.database().ref("userid").on("value",snapshot => {
         <FlatList  
           data={this.state.items}  
           
-          renderItem={({item}) =>  <UserRow online={item.watchstatus}  username={item.Username} hours={item.minute} minutes={item.seconds}></UserRow>}   
+          renderItem={({item}) =>  <UserRow online={item.watchstatus}  username={item.Username} hour={item.hour} minute={item.minute} seconds={item.seconds}></UserRow>}   
         />
 
         </View>
